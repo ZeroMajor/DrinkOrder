@@ -29,17 +29,31 @@ namespace DrinkOrder.ViewModel
 		}
 
 		/// <summary>
-		/// Read data from file, parse and prepare a dictionary containing valid data
+		/// Read data from file, parse and prepare a dictionary containing valid data.
 		/// </summary>
 		/// <param name="fileName"></param>
-		/// <returns></returns>
+		/// <returns>Dictionary where keys are Ids and values are actual data structs.<para/>Empty if data access error occured.</returns>
 		private static Dictionary<int, DrinkComponent> ReadDataFromFile(string fileName)
 		{
 			string[] dataStrings;
-			using (var file = File.OpenText(fileName))
-            {
-                dataStrings = file.ReadToEnd().Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-            }
+
+			StreamReader file = null;
+			try
+			{
+				file = File.OpenText(fileName);
+				dataStrings = file.ReadToEnd().Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
+			}
+			catch 
+			{
+				// hide data access errors, should return empty data instead
+				// TODO - log errors using e.g. NLog
+				dataStrings = new string[] { };
+			}
+			finally
+			{
+				if (file != null)
+					file.Dispose();
+			}
 
 			// dictionary will contain not more than dataStrings.Length entries
 			var dict = new Dictionary<int, DrinkComponent>(dataStrings.Length);
