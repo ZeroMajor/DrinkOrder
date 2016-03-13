@@ -41,7 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\DataProvider.cs" />
     <Compile Include="Model\DrinkComponent.cs" />
+    <Compile Include="Model\FileDataReader.cs" />
+    <Compile Include="Model\IDataReader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\ComponentSet.cs" />
