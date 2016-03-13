@@ -60,7 +60,7 @@ namespace DrinkOrder
 				if (addInput == null) 
 					continue;
 
-				var adds = addInput.Split(',');
+				var adds = addInput.Split(new []{','}, StringSplitOptions.RemoveEmptyEntries);
 				foreach (var item in adds)
 				{
 					if (!int.TryParse(item, out id)
