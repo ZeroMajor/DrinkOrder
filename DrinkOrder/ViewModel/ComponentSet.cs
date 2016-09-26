@@ -24,7 +24,7 @@ namespace DrinkOrder.ViewModel
 
 		static ComponentSet()
 		{
-			// избыточно в данном случае, но позволяет создать необходимый уровень абстракции
+			// excessive but allows the required abstraction level
 			var dp = new DataProvider();
 			Drinks = dp.DataReader.Drinks;
 			Additives = dp.DataReader.Additives;

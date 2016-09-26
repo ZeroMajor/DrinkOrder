@@ -30,32 +30,32 @@ namespace DrinkOrder
 		{
 			var drinks = ComponentSet.Drinks;
 			var additives = ComponentSet.Additives;
-			PrintDictionary(drinks, "Вашему вниманию предлагаются напитки:");
-			PrintDictionary(additives, "Вы также можете выбрать добавки:");
+			PrintDictionary(drinks, "Today's drink menu:");
+			PrintDictionary(additives, "You also can choose extras:");
 
 			// error info if some of additive ids were incorrect
 			var sb = new StringBuilder();
 
 			while (true)
 			{
-				Console.Write("{0}Введите номер напитка: ", Environment.NewLine);
+				Console.Write("{0}Please input the drink number: ", Environment.NewLine);
 				// parse input
 				var drinkInput = Console.ReadLine();
 
 				int id;
 				if (!int.TryParse(drinkInput, out id))
 				{
-					Console.WriteLine("Пожалуйста, введите только номер напитка.");
+					Console.WriteLine("Please input only the drink number.");
 					continue;
 				}
 				if (!drinks.ContainsKey(id))
 				{
-					Console.WriteLine("Извините, у нас такого напитка нет.");
+					Console.WriteLine("Sorry, we don't have such drink here.");
 					continue;
 				}
 				var price = drinks[id].Price;
 
-				Console.Write("Введите номера добавок через запятую. Если добавки не требуются, просто нажмите клавишу Enter: ");
+				Console.Write("Please enter numbers of extras separated by comma. If no extras needed, just press Enter: ");
 				var addInput = Console.ReadLine();
 				if (addInput == null) 
 					continue;
@@ -73,12 +73,12 @@ namespace DrinkOrder
 						price += additives[id].Price;
 					}
 				}
-				Console.WriteLine("Стоимость: ${0:F2}", price);
+				Console.WriteLine("Total: ${0:F2}", price);
 				
 				// some incorrect addition ids found
 				if (sb.Length > 0)
 				{
-					Console.WriteLine("К сожалению, мы не смогли найти добавки со следующими номерами: {0}", sb.ToString().TrimEnd(',', ' '));
+					Console.WriteLine("Unfortunately, we could not find following numbers of extras: {0}", sb.ToString().TrimEnd(',', ' '));
 					sb.Clear();
 				}
 			} // end fo main cycle
